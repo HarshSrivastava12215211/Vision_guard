@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  visionguard:
+    build: .
+    container_name: visionguard
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./models:/app/models
+      - ./app/client:/app/app/client
+    restart: unless-stopped
+    environment:
+      - MODEL_TYPE=onnx
+      - MODEL_PATH=/app/models/visionguard.onnx

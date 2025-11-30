@@ -1,0 +1,13 @@
+fastapi==0.95.2
+uvicorn[standard]==0.22.0
+opencv-python-headless==4.10.0.84
+numpy==1.26.0
+pydantic==1.10.11
+aiohttp==3.8.5
+websockets==11.0.3
+onnxruntime==1.16.1
+torch==2.2.0      # If using GPU, install the CUDA-matching wheel from PyTorch site
+ultralytics==8.0.150  # for YOLOv8 train/inference convenience (optional)
+python-multipart==0.0.6
+Pillow==10.1.0
+gunicorn==21.2.0

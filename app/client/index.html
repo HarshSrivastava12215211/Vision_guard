@@ -1,0 +1,54 @@
+<!-- app/client/index.html -->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>VisionGuard Live Stream</title>
+  <style>
+    body { background:#111; color:#ddd; font-family: Arial; text-align:center; }
+    #video { border: 4px solid #222; max-width: 90%; height: auto; }
+    #controls { margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>VisionGuard — Live Stream</h1>
+  <img id="video" src="" alt="stream"/>
+  <div id="controls">
+    <button id="connect">Connect</button>
+    <button id="disconnect" disabled>Disconnect</button>
+    <p id="status">Disconnected</p>
+  </div>
+
+  <script>
+    let ws;
+    const img = document.getElementById('video');
+    const status = document.getElementById('status');
+    document.getElementById('connect').onclick = () => {
+      ws = new WebSocket(`ws://${location.host}/ws/stream`);
+      ws.onopen = () => {
+        status.innerText = "Connected";
+        document.getElementById('connect').disabled = true;
+        document.getElementById('disconnect').disabled = false;
+      };
+      ws.onmessage = (evt) => {
+        try {
+          const data = JSON.parse(evt.data);
+          const b64 = data.frame;
+          img.src = "data:image/jpg;base64," + b64;
+        } catch(e) {
+          console.error("parse error", e);
+        }
+      };
+      ws.onclose = () => {
+        status.innerText = "Disconnected";
+        document.getElementById('connect').disabled = false;
+        document.getElementById('disconnect').disabled = true;
+      };
+    };
+
+    document.getElementById('disconnect').onclick = () => {
+      if (ws) ws.close();
+    };
+  </script>
+</body>
+</html>
