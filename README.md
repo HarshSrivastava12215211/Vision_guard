@@ -15,5 +15,5 @@ See project tree in repo.
 ## Quickstart (Local, CPU)
 1. Clone repo:
 ```bash
-git clone https://github.com/<you>/visionguard.git
+git clone https://github.com/HarshSrivastava12215211/visionguard.git
 cd visionguard
